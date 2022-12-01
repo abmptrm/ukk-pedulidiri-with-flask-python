@@ -1,0 +1,23 @@
+.welcome {
+    border: 5px solid #000;
+    width: 900px;
+    height: 250px;
+}
+
+.welcome h4{
+    margin-left:20px;
+    margin-top: 20px;
+}
+
+.container button a {
+            
+    text-decoration: none;
+    color: #000;
+            
+}
+.container button {
+    float: right;
+    margin-top: 20px;
+    width: 100px;
+    height: 33px;
+}

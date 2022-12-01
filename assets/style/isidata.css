@@ -1,0 +1,37 @@
+.container-data {
+    margin: 2% 2% 10% 10%;
+}
+
+.isi-data {
+            margin-top: 50px;
+            border: 5px solid #000;
+            width: 900px;
+            height: 350px;
+        }
+
+        .isi-data form {
+            margin-top: 50px;
+            margin-left: 200px;
+        }
+
+        .isi-data label {
+            float: left;
+            margin-right: 100px;
+        }
+
+        .isi-data input {
+            float: right;
+        }
+
+        .isi-data table tr {
+            height: 50px;
+        }
+
+        .isi-data #date, #time, #suhutubuh, #lokasi {
+            width: 170px;
+        }
+
+        .isi-data button {
+            width: 100px;
+            height: 33px;
+        }
