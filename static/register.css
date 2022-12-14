@@ -1,0 +1,47 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    margin-top: 15%;
+}
+
+label {
+    font-size: 13px;
+    margin-left:5px;
+}
+        
+input {
+    width: 300px;
+    height: 30px;
+    padding: 3px;
+}
+
+.tombol {
+    padding-top: 20px;
+}
+
+#btn_daftar {
+    float: right;
+    width: 130px;
+    height: 33px;
+            
+}
+
+#show_password {
+    float: left;
+    width: 13px;
+    margin-left: 6px;
+    margin-bottom: 6px;
+    font-size: 20px;
+}
+
+
+        

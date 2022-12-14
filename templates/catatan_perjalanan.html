@@ -1,18 +1,16 @@
-<?php
-  session_start();
-  include "header.php";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/style/catatan.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='catatan.css')}}">
     <title>Catatan Perjalanan</title>
 </head>
 <body>
+    <header>
+        {%include "header.html"%}
+    </header>
     <div class="container-catatan">
         <div class="urutkan">
         <h4>Urutkan Berdasarkan Tanggal : 
@@ -28,40 +26,40 @@
         <table align="center" border="1" width="95%" style="border-style:solid" id="myTable">
             <thead>
                 <tr>
-                    <th style="width:5%">No.</th>
                     <th style="width:18%">Tanggal</th>
                     <th style="width:15%">Waktu</th>
                     <th style="width:30%">Lokasi Yang Dikunjungi</th>
                     <th style="width:15%">Suhu Tubuh</th>
 				</tr>
             </thead>
-            <tbody>
-                <?php
-                        $i = 1;
-                        $cek = true;
-                        include 'config.php';
-                        $nik = md5($_SESSION['nik']);
-                        $sql = "SELECT*FROM tbperjalanan WHERE nik='$nik'";
-                        $query = mysqli_query( $conn, $sql );
-                        foreach ( $query as $value ) {
-                            $cek = false;
-                        ?>
 
-                        <tr>
-                            <td><?php echo $i++ ?></td>
-                            <td><?php echo $value['tanggal'] ?></td>
-                            <td><?php echo $value['waktu'] ?></td>
-                            <td><?php echo $value['lokasi'] ?></td>
-                            <td><?php echo $value['suhu'] ?></td>
-                            
-                        </tr>
-                        <?php }?>
+            
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{item[0]}}</td>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    
+                </tr>
+                {% endfor %}
+
+                {% for category, message in get_flashed_messages(with_categories=True) %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert" style="color: red; text-align: center; margin: 20px;">
+                      {{ message }} <a href="{{url_for('isi_data')}}" style="margin-right:10px">Silakan Isi Data!</a>
+                    </div>
+                {% endfor %}
             </tbody>
+            
                     
                     
         </table>
     </div>
     </div>
-    <script src="main.js"></script>
+    <script src="{{url_for('static', filename='main.js')}}"></script>
+    
 </body>
 </html>
+
+

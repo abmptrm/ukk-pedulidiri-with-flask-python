@@ -12,6 +12,11 @@
     justify-content: center;
     margin-top: 15%;
 }
+
+label {
+    font-size: 13px;
+    margin-left:5px;
+}
         
 input {
     width: 300px;
@@ -23,17 +28,18 @@ input {
     padding-top: 20px;
 }
 
-#btn_daftar {
-    float: left;
-    width: 150px;
-    height: 33px;
-            
-}
-
 #btn_masuk {
     float: right;
-    width: 100px;
+    width: 150px;
     height: 33px;
+}
+
+#show_password {
+    float: left;
+    width: 13px;
+    margin-left: 6px;
+    /* margin-bottom: 10px; */
+    font-size: 20px;
 }
 
         

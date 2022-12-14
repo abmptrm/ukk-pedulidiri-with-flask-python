@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isi Data</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='isidata.css')}}">
+    
+</head>
+<body>
+    <header>
+        {% include 'header.html' %}
+    </header>
+
+    <div class="container-data">
+        
+        <div class="isi-data">
+                <form action="" method="POST">
+                    
+                    <table>
+                        <tr>
+                            <th ><label for="tanggal">Tanggal</label></th>
+                            <th><input type="date" name="tanggal" id="date"></th>
+                        </tr>
+                        <tr>
+                            <th><label for="jam">Jam</label></th>
+                            <th><input type="time" name="jam" id="time"></th>
+                        </tr>
+                        <tr>
+                            <th><label for="lokasi">Lokasi yang dikunjungi</label></th>
+                            <th><input type="text" name="lokasi" id="lokasi"></th>
+                        </tr>
+                        <tr>
+                            <th><label for="suhu">Suhu</label></th>
+                            <th><input type="text" name="suhu" id="suhutubuh"></th>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% for category, message in get_flashed_messages(with_categories=True) %}
+                                    {% if category == 'success'%}
+                                        <div class="alert" style="color: green; font-weight: bold;">
+                                            {{message}}
+                                        </div>
+                                    {% elif category == 'danger' %}
+                                        <div class="alert" style="color: rgb(255, 0, 0); font-weight: bold;">
+                                            {{message}}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </th>
+                            <th><input style="float: right;" name="simpan" type="submit" id=button></th>
+                        </tr>
+                        
+                    </table>
+                    
+                </form>
+            </div>
+        
+    </div>
+    
+    <!-- <script src="{{url_for('static', filename='alert.js')}}"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            setTimeout(function() {
+                $(".alert").hide(500) 
+            }, 3000); 
+        }); 
+    </script>
+</body>
+</html>
+
