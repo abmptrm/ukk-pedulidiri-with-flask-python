@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import pymysql
 from termcolor import colored
+from time import sleep
+import hashlib
+from cryptography.fernet import Fernet
+
 
 app = Flask(__name__)
 
@@ -16,6 +20,7 @@ def koneksi():
     conn = pymysql.connect(host=host, user=user, password=pwd, database=db)
     return conn
 
+
 # route halaman index
 @app.route('/')
 def index():
@@ -27,12 +32,19 @@ def index():
 def login():
 
     if request.method == "POST":
+
+        nik = request.form['nik']
+        nama = request.form['nama']
+
+        hash_nik = hashlib.sha256(nik.encode()).hexdigest()
+        hash_nama = hashlib.sha256(nama.encode()).hexdigest()
+
         try :
             conn = koneksi()
             cursor = conn.cursor()
-            cursor.execute(f"SELECT nik, nama FROM tbuser WHERE nik = '{request.form['nik']}' AND nama = '{request.form['nama']}' ")
-            session['username'] = request.form['nama']
-            session['nomernik'] = request.form['nik']
+            cursor.execute(f"SELECT nik, nama FROM tbuser WHERE nik = '{hash_nik}' AND nama = '{hash_nama}' ")
+            session['username'] = nama
+            session['nomernik'] = hash_nik
             return redirect(url_for('home'))
 
         except Exception as e :
@@ -57,13 +69,17 @@ def register():
         nik = request.form['nik']
         nama = request.form['nama']
 
+        hash_nik = hashlib.sha256(nik.encode()).hexdigest()
+        hash_nama = hashlib.sha256(nama.encode()).hexdigest()
+
         try :
             conn = koneksi()
             cursor = conn.cursor()
-            cursor.execute(f"INSERT INTO `tbuser`(`nik`, `nama`) VALUES ('{nik}','{nama}')")
+            cursor.execute(f"INSERT INTO `tbuser`(`nik`, `nama`) VALUES ('{hash_nik}', '{hash_nama}')")
             flash('Anda Berhasil Terdaftar!', 'success')
             conn.commit()
-            conn.close()
+            sleep(3.0)
+            return redirect(url_for('login'))
 
         except Exception as e :
             flash('Gagal Terdaftar!', 'danger')
@@ -126,6 +142,8 @@ def isi_data():
             cursor.execute(f"INSERT INTO tbperjalanan (nik, tanggal, waktu, lokasi, suhu)VALUES('{session['nomernik']}', '{tanggal}', '{jam}', '{lokasi}', '{suhu}')")
             flash('Data Tersimpan!', 'success')
             conn.commit()
+            sleep(3.0)
+            return redirect(url_for('catatan_perjalanan'))
 
         except Exception as e:
             flash('Data Gagal Tersimpan!', 'danger')
@@ -141,4 +159,4 @@ def isi_data():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', debug=True, port=5000)
+    app.run(host='127.0.0.1', debug=True, port=5050)

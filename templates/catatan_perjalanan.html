@@ -46,9 +46,15 @@
                 {% endfor %}
 
                 {% for category, message in get_flashed_messages(with_categories=True) %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert" style="color: red; text-align: center; margin: 20px;">
-                      {{ message }} <a href="{{url_for('isi_data')}}" style="margin-right:10px">Silakan Isi Data!</a>
-                    </div>
+                    {% if category == "danger" %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert" style="color: red; text-align: center; margin: 20px; font-weight:bold;">
+                            {{ message }} <a href="{{url_for('isi_data')}}" style="margin-right:10px">Silakan Isi Data!</a>
+                        </div>
+                    {% elif category == "success"%}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert" style="color: green; text-align: center; margin: 20px; font-weight:bold;">
+                            {{ message }} <a href="{{url_for('isi_data')}}" style="margin-right:10px;">Isi Data Kembali!</a>
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </tbody>
             
@@ -58,7 +64,14 @@
     </div>
     </div>
     <script src="{{url_for('static', filename='main.js')}}"></script>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            setTimeout(function() {
+                $(".alert").hide(500) 
+            },5000); 
+        }); 
+    </script>
 </body>
 </html>
 
